@@ -15,14 +15,15 @@
         }
 
         async function doSelect() {
-            var sql = 'select * from Tweets order by time desc limit 20';
+            var tw = document.getElementById('p1').value;
+            var sql = `select * from Tweets where tweet like "%${tw}%"`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
             html = html + '<ul>';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + '<li>' + object.id + ',' + object.name + ',' + object.time + '</li>';
+                html = html + '<li>' + object.tweet + '</li>';
             }
             html = html + '</ul>';
             document.getElementById('result').innerHTML = html;
@@ -33,7 +34,8 @@
 
 <body>
     <h1>Tweets</h1>
-    <button onclick="button1Pressed()">X</button>
+    <input id='p1' onclick='button1Pressed'>
+    <button onclick="button1Pressed()">検索</button>
     <hr>
     <p id="result">xxxx</p>
 </body>

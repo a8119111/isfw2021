@@ -29,6 +29,25 @@
 
 
         }
+
+        function button2Pressed() {
+            doSelect();
+        }
+
+        async function doSelect() {
+            var tw = document.getElementById('p1').value;
+            var sql = `select * from Tweets where tweet like "%${tw}%"`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<ul>';
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                html = html + '<li>' + object.tweet + '</li>';
+            }
+            html = html + '</ul>';
+            document.getElementById('result2').innerHTML = html;
+        }
     </script>
 
 </head>
@@ -43,5 +62,15 @@
     <br>
     <p id="result"></p>
 </body>
+
+<body2>
+    <h1>Tweets</h1>
+    <input id="p1" onclick="button2Pressed">
+    <button onclick="button2Pressed()">検索</button>
+    <hr>
+    <p id="result2">XXXX</p>
+
+</body2>
+
 
 </html>

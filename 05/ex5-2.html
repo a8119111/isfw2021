@@ -30,12 +30,14 @@
 
         }
         $(document).ready(function () {
-            doSelect();
-        })
+            x = 0;
+            setInterval(doCount, 2000);
+
+        });
 
 
 
-        async function doSelect() {
+        async function doCount() {
 
             var sql = `select * from Tweets`;
             var objects = await osql.connect(sql);
@@ -47,6 +49,7 @@
                 html = html + '<li>' + object.tweet + ',' + object.name + ',' + object.time + '</li>';
             }
             html = html + '</ul>';
+            x++;
             document.getElementById('result2').innerHTML = html;
         }
     </script>
@@ -66,7 +69,7 @@
 
 <body2>
     <h1>Tweets</h1>
-    <button onclick="button2Pressed()">X</button>
+
     <hr>
     <p id="result2">XXXX</p>
 

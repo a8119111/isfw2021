@@ -29,13 +29,14 @@
 
 
         }
-
-        function button2Pressed() {
+        $(document).ready(function () {
             doSelect();
-        }
+        })
+
+
 
         async function doSelect() {
-            /% var tw = document.getElementById('p1').value; %/
+
             var sql = `select * from Tweets`;
             var objects = await osql.connect(sql);
             console.log(objects);

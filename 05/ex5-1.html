@@ -11,21 +11,26 @@
 
     <script>
         function button1Pressed() {
-            doSelect();
+            doTable();
         }
 
-        async function doSelect() {
-            var tw = document.getElementById('p1').value;
-            var sql = `select * from Tweets where tweet like "%${tw}%"`;
+        async function doTable() {
+            var sql = 'select * from Tweets order by time desc limit 20';
             var objects = await osql.connect(sql);
             console.log(objects);
+
             var html = '';
-            html = html + '<ul>';
+
+            html = html + '<table border ="1">';
+
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + '<li>' + object.tweet + '</li>';
+                html = html + '<tr>';
+                html = html + '<td>' + object.name + '<td>';
+                html = html + object.id;
+                html = html + '<tr>';
             }
-            html = html + '</ul>';
+            html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
     </script>
@@ -34,8 +39,7 @@
 
 <body>
     <h1>Tweets</h1>
-    <input id='p1' onclick='button1Pressed'>
-    <button onclick="button1Pressed()">検索</button>
+    <button onclick="button1Pressed()">X</button>
     <hr>
     <p id="result">xxxx</p>
 </body>

@@ -10,20 +10,6 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
-        function button3Pressed() {
-            execDelete();
-            execSelect();
-        }
-
-        async function execDelete() {
-            var userid = document.getElementById('deid').value;
-            var sql = `delete from Users where id = "${userid}"`;
-            var objects = await osql.connect(sql);
-
-            document.getElementById('result.de').innerHTML = 'idが' + userid + 'のユーザーを削除しました'
-            deid.value = ''
-        }
-
         $(document).ready(function () {
             execSelect();
         });
@@ -40,10 +26,25 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+                html = html + '<td>' + '<button onclick="button3Pressed()' + object.id + '">削除</button>' + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
+            document.getElementById('tf')
+        }
+
+        function button3Pressed() {
+            execDelete();
+        }
+
+        async function execDelete() {
+            var useid = document.getElementById('tf').value;
+            var sql = `delete from Users where id = "${userid}"`;
+            var objects = await osql.connect(sql);
+
+            document.getElementById('result.de').innerHTML = 'idが' + object.name + 'のユーザーを削除しました'
+
         }
 
 
@@ -56,8 +57,6 @@
 <body>
     <h1>Users</h1>
     <hr>
-    ID:<input id="deid" onclick='button3Pressed'>
-    <button onclick="button3Pressed()">削除</button>
     <p id="result.de"></p>
     <hr>
     <p id="result">xxxx</p>
